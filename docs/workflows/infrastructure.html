@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infrastructure code workflows &mdash; CI/CD threat model</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="External adversary" href="../adversaries/external.html" />
+    <link rel="prev" title="Application code workflows" href="application.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> CI/CD threat model
+            <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Workflows</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="application.html">Application code workflows</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Infrastructure code workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adversaries</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../adversaries/external.html">External adversary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adversaries/internal.html">Internal adversary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Assets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../assets/ci-access.html">CI server access control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assets/database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assets/production-code.html">Production code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assets/scm-access.html">Source code management access control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assets/source-code.html">Source code</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Attack vectors</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/authentication-schemes.html">Authentication schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/ci-server.html">CI Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/containers.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/k8s-objects.html">K8s objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/logs.html">Logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/package-registries.html">Package registries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/repo-hosting-services.html">Repository hosting services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/user-accounts.html">User accounts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Attacks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../attacks/ppe.html">Poisoned pipeline execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attacks/sca.html">Supply chain attacks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Threats</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../threats/exposure-secrets.html">Exposure of secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../threats/insecure-code.html">Insecure code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../threats/insecure-system-config.html">Insecure system configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../threats/lateral-movement.html">Lateral movement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../threats/third-party.html">Usage of third party services</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://tymyrddin.github.io/threat-models/">Overview threat models</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://tymyrddin.github.io/attack-trees/docs/cicd/README.html">CI/CD attack trees</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wyrd.netlify.app/">Applications and CI/CD</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">CI/CD threat model</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Infrastructure code workflows</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/docs/workflows/infrastructure.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="infrastructure-code-workflows">
+<h1>Infrastructure code workflows<a class="headerlink" href="#infrastructure-code-workflows" title="Permalink to this heading"></a></h1>
+<p>An overview of the background info, design, and implementation of a production-ready CI/CD pipeline for infrastructure
+code.</p>
+<section id="assumptions">
+<h2>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this heading"></a></h2>
+<p>Assuming trunk based development:</p>
+<ul class="simple">
+<li><p>Small, frequent commits reduce the scope of each integration</p></li>
+<li><p>Automated testing</p></li>
+<li><p>Feature toggles</p></li>
+</ul>
+<p>And two types of infrastructure code:</p>
+<ul class="simple">
+<li><p>Infrastructure Modules for deploying specific components of the infrastructure, such as Virtual Private Clouds (VPCs), databases, and docker clusters like Elastic Container Service, Kubernetes, Nomad, etc.</p></li>
+<li><p>Live infrastructure configurations, specific parameters for each component in the infrastructure architecture, the front-end for its deployments.</p></li>
+</ul>
+<p>Typically, these two different types of infrastructure code have separate repositories, an infrastructure-modules
+repository for modules and infrastructure-live repository for live configuration. This makes it easier to test module
+code, promote immutable versions across environments, and keep it DRY (“Don’t repeat yourself”). There are distinct differences in the way the code is tested, used, and deployed between the two types of infrastructure
+code.</p>
+</section>
+<section id="cloning-and-branching">
+<h2>Cloning and branching<a class="headerlink" href="#cloning-and-branching" title="Permalink to this heading"></a></h2>
+<p>The first step in making changes to a code base is to clone the repository locally and begin development on a new
+branch. Using git:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>git clone $REPO_URL
+git checkout -b $NEW_BRANCH_NAME
+</pre></div>
+</div>
+</section>
+<section id="running-code-locally">
+<h2>Running code locally<a class="headerlink" href="#running-code-locally" title="Permalink to this heading"></a></h2>
+<p>With infrastructure modules, this involves deploying the module in a sandbox environment, because checking whether
+infrastructure code works requires making the actual API calls to the cloud to deploy it. For example, to test a
+Terraform module, define example code that sets up the necessary resource dependencies that the module needs, and then
+deploy that into a sandbox with <code class="docutils literal notranslate"><span class="pre">terraform</span> <span class="pre">apply</span></code>. Then inspect the deployed resources to make sure they are
+functioning as expected. These processes can be captured in an automated test.</p>
+<p>Locally testing live infrastructure is more difficult because the code is tied to a specific live environment (the
+configuration to manage live infrastructure). The only real test possible for live infrastructure config is a dry run
+of the infrastructure code. Most Infrastructure as Code tools support such dry runs of the code to check what it would
+do against the existing environment. For example, with Terraform, it is possible to run <code class="docutils literal notranslate"><span class="pre">terraform</span> <span class="pre">plan</span></code> to sanity
+check the planned actions Terraform will take. The trunk should be a true reflection of the live environment, so
+expect there to be no changes to make on a fresh clone of trunk.</p>
+</section>
+<section id="making-code-changes">
+<h2>Making code changes<a class="headerlink" href="#making-code-changes" title="Permalink to this heading"></a></h2>
+<p>Testing infrastructure modules can take a long time because it requires deploying infrastructure (on 10-20 minutes).
+There may be ways to improve the test cycles for infrastructure modules.</p>
+<p>Testing live infrastructure config can be done in minutes (because it only involves doing a dry run).</p>
+</section>
+<section id="pull-merge-requests-and-reviews">
+<h2>Pull (Merge) requests and reviews<a class="headerlink" href="#pull-merge-requests-and-reviews" title="Permalink to this heading"></a></h2>
+<p>Focus the review process on things that are hard to check through automated testing, such as checking security flaws,
+reviewing general code design, enforcing style guides, or identifying potential performance issues on larger data sets.</p>
+</section>
+<section id="running-automated-tests">
+<h2>Running automated tests<a class="headerlink" href="#running-automated-tests" title="Permalink to this heading"></a></h2>
+<p>The CI server can run automated tests for infrastructure modules. Tests for infrastructure modules can take a long
+time to run (costly). Run the tests only for the modules that changed instead of doing a regression test for all the
+modules on every commit. Run a nightly build that runs the whole suite on a regular interval that is less frequent than
+developers updating the code.</p>
+<p>For live infrastructure config, the CI server can perform a dry run of the infrastructure and post the entire log of
+the run for further analysis. This has potential security issues as the logs for a dry run would typically include
+secrets. Encrypt the results before it is posted and guard who has access.</p>
+</section>
+<section id="merging-and-releasing">
+<h2>Merging and releasing<a class="headerlink" href="#merging-and-releasing" title="Permalink to this heading"></a></h2>
+<p>After merging the code into trunk, a new, immutable, versioned release artifact can be generated that can be deployed.</p>
+<p>Infrastructure modules are usually consumed as a library. Most infrastructure as code tools consume the libraries
+directly from a Git repository. Use a Git tag to mark a revision with a human friendly name to generate the release
+artifact.</p>
+<p>For live infrastructure config, there is usually no release artifact.</p>
+</section>
+<section id="deploying">
+<h2>Deploying<a class="headerlink" href="#deploying" title="Permalink to this heading"></a></h2>
+<p>To deploy infrastructure modules, references to the modules in the live infrastructure config need to be created or
+updated. If the module is already deployed, this may be as simple as bumping the ref tag in the live config. If the
+module is being deployed for the first time, then this will require creating a new configuration in the live
+infrastructure config to deploy the module.</p>
+<p>An automated deployment of infrastructure modules may be risky as a simple change could destroy the database.
+But, sometimes it is not practical to manually roll out deployments even for infrastructure modules. In some
+cases manual roll out can be more risky from a security perspective (like increasing attack surface by passing out
+admin credentials to all developers). Human verification to the automated steps of the workflow can be
+used.</p>
+<p>For live infrastructure config, deploying the code is applying the code to the live environment and is
+highly dependent on the tool. For example, <code class="docutils literal notranslate"><span class="pre">terraform</span> <span class="pre">apply</span></code> or <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">apply</span></code>.</p>
+<p>What needs automating depends on the nature of the change. The pipeline differs based on which
+configurations were updated.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="application.html" class="btn btn-neutral float-left" title="Application code workflows" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../adversaries/external.html" class="btn btn-neutral float-right" title="External adversary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+        <a href="https://unseen-uni.netlify.app/">Unseen University</a>, 2022
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

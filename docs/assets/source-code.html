@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Source code &mdash; CI/CD threat model</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Authentication schemes" href="../attack-vectors/authentication-schemes.html" />
+    <link rel="prev" title="Source code management access control" href="scm-access.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> CI/CD threat model
+            <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Workflows</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/application.html">Application code workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflows/infrastructure.html">Infrastructure code workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adversaries</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../adversaries/external.html">External adversary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../adversaries/internal.html">Internal adversary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Assets</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ci-access.html">CI server access control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="production-code.html">Production code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scm-access.html">Source code management access control</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Source code</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Attack vectors</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/authentication-schemes.html">Authentication schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/ci-server.html">CI Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/containers.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/k8s-objects.html">K8s objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/logs.html">Logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/package-registries.html">Package registries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/repo-hosting-services.html">Repository hosting services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attack-vectors/user-accounts.html">User accounts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Attacks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../attacks/ppe.html">Poisoned pipeline execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../attacks/sca.html">Supply chain attacks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Threats</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../threats/exposure-secrets.html">Exposure of secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../threats/insecure-code.html">Insecure code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../threats/insecure-system-config.html">Insecure system configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../threats/lateral-movement.html">Lateral movement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../threats/third-party.html">Usage of third party services</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://tymyrddin.github.io/threat-models/">Overview threat models</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://tymyrddin.github.io/attack-trees/docs/cicd/README.html">CI/CD attack trees</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wyrd.netlify.app/">Applications and CI/CD</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">CI/CD threat model</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Source code</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/docs/assets/source-code.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="source-code">
+<h1>Source code<a class="headerlink" href="#source-code" title="Permalink to this heading"></a></h1>
+<p>Creating source code is the first phase in a CI/CD pipeline. During this phase, developers translate requirements into
+algorithms, features, and behaviours. Tools vary and depend on purpose and language of project, developer preferences
+and other variables. There is no uniform source creation pipeline.</p>
+<section id="application-pipelines">
+<h2>Application pipelines<a class="headerlink" href="#application-pipelines" title="Permalink to this heading"></a></h2>
+<p>A source code creation pipeline may incorporate any of the following:</p>
+<ul class="simple">
+<li><p>A programming framework, such as Python or JavaScript.</p></li>
+<li><p>An integrated development environment (IDE) such as PyCharm or Codium.</p></li>
+<li><p>Testing tools such as Jest for JavaScript or pytest for Python programs.</p></li>
+<li><p>Code-quality tools, such as black, mypy, flake8, isort, and vulnerability scanners.</p></li>
+<li><p>Code repositories and version control systems, such as Git.</p></li>
+</ul>
+</section>
+<section id="mitigations">
+<h2>Mitigations<a class="headerlink" href="#mitigations" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Lock down development machines</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="scm-access.html" class="btn btn-neutral float-left" title="Source code management access control" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../attack-vectors/authentication-schemes.html" class="btn btn-neutral float-right" title="Authentication schemes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+        <a href="https://unseen-uni.netlify.app/">Unseen University</a>, 2022
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

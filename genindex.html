@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Index &mdash; CI/CD threat model</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> CI/CD threat model
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Workflows</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docs/workflows/application.html">Application code workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/workflows/infrastructure.html">Infrastructure code workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Adversaries</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docs/adversaries/external.html">External adversary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/adversaries/internal.html">Internal adversary</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Assets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docs/assets/ci-access.html">CI server access control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/assets/database.html">Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/assets/production-code.html">Production code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/assets/scm-access.html">Source code management access control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/assets/source-code.html">Source code</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Attack vectors</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docs/attack-vectors/authentication-schemes.html">Authentication schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/attack-vectors/ci-server.html">CI Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/attack-vectors/containers.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/attack-vectors/k8s-objects.html">K8s objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/attack-vectors/logs.html">Logs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/attack-vectors/package-registries.html">Package registries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/attack-vectors/repo-hosting-services.html">Repository hosting services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/attack-vectors/user-accounts.html">User accounts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Attacks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docs/attacks/ppe.html">Poisoned pipeline execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/attacks/sca.html">Supply chain attacks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Threats</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docs/threats/exposure-secrets.html">Exposure of secrets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/threats/insecure-code.html">Insecure code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/threats/insecure-system-config.html">Insecure system configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/threats/lateral-movement.html">Lateral movement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/threats/third-party.html">Usage of third party services</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://tymyrddin.github.io/threat-models/">Overview threat models</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://tymyrddin.github.io/attack-trees/docs/cicd/README.html">CI/CD attack trees</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://wyrd.netlify.app/">Applications and CI/CD</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CI/CD threat model</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Index</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ 
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+        <a href="https://unseen-uni.netlify.app/">Unseen University</a>, 2022
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
